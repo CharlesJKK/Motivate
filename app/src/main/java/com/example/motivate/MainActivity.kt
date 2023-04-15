@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if(view.id == R.id.button_new_phrase){
-            var s = ""
+
         }
     }
 }
