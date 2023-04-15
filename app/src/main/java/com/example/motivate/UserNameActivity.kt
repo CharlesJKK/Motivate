@@ -23,7 +23,11 @@ class UserNameActivity : AppCompatActivity() {
 
     private fun handleSave() {
         val name = binding.editYourName.text.toString()
+
         if (name != "") {
+
+            SecurityPreferences(this).storeUserName("USER_NAME", name)
+
             val navigateToMain = Intent(this, MainActivity::class.java)
             startActivity(navigateToMain)
             finish()
