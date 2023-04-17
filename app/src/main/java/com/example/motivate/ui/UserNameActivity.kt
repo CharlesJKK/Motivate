@@ -1,9 +1,12 @@
-package com.example.motivate
+package com.example.motivate.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.motivate.infra.MotivationConstants
+import com.example.motivate.R
+import com.example.motivate.infra.SecurityPreferences
 import com.example.motivate.databinding.ActivityUserNameBinding
 
 class UserNameActivity : AppCompatActivity() {
@@ -19,6 +22,16 @@ class UserNameActivity : AppCompatActivity() {
         binding.buttonSave.setOnClickListener {
             handleSave()
         }
+
+        verifyUserName()
+    }
+
+    private fun verifyUserName(){
+        val userName = SecurityPreferences(this).getUserName(MotivationConstants.KEY.USER_NAME)
+        if(userName != ""){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
 
     private fun handleSave() {
@@ -26,7 +39,7 @@ class UserNameActivity : AppCompatActivity() {
 
         if (name != "") {
 
-            SecurityPreferences(this).storeUserName("USER_NAME", name)
+            SecurityPreferences(this).storeUserName(MotivationConstants.KEY.USER_NAME, name)
 
             val navigateToMain = Intent(this, MainActivity::class.java)
             startActivity(navigateToMain)
