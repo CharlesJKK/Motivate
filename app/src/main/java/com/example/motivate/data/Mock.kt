@@ -1,6 +1,7 @@
 package com.example.motivate.data
 
 import com.example.motivate.infra.MotivationConstants
+import kotlin.random.Random
 
 data class Phrase(val description: String, val categoryId: Int)
 
@@ -26,4 +27,13 @@ class Mock {
         Phrase("Riscos devem ser corridos, porque o maior perigo é não arriscar nada!", sunny)
     )
 
+    fun getPhrase(id: Int): String{
+        val filtered = mListPhrase.filter { (it.categoryId == id || id == all ) }
+
+        val randomPhrase = Random.nextInt(filtered.size)
+
+        return filtered[randomPhrase].description
+    }
+
 }
+
