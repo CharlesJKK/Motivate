@@ -9,6 +9,7 @@ import com.example.motivate.R
 import com.example.motivate.data.Mock
 import com.example.motivate.infra.SecurityPreferences
 import com.example.motivate.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val view = binding.root
         setContentView(view)
 
-        handleUserName()
+        showUserName()
         handleFilter(R.id.image_all)
 
         binding.buttonNewPhrase.setOnClickListener(this)
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if(view.id == R.id.button_new_phrase) {
-            var phraseStr = Mock().getPhrase(categoryId)
+            var phraseStr = Mock().getPhrase(categoryId, Locale.getDefault().language)
             binding.textPhrase.text = phraseStr
         }else if(view.id in listOf(R.id.image_all,R.id.image_happy, R.id.image_sunny)){
             handleFilter(view.id)
@@ -62,8 +63,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun handleUserName(){
+    private fun showUserName(){
         val userName = SecurityPreferences(this).getUserName(MotivationConstants.KEY.USER_NAME)
-        binding.textUserName.text = "Olá, $userName!"
+        val salutLang = getString(R.string.hello)
+        binding.textUserName.text = "$salutLang, $userName!"
     }
 }
